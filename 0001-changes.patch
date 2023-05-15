@@ -1,0 +1,477 @@
+From 5ec4a729bbc2a8d0e88a05297386a82dcc7735d1 Mon Sep 17 00:00:00 2001
+From: Zaibonisha <zsmohamed94@gmail.com>
+Date: Mon, 15 May 2023 12:22:33 +0200
+Subject: [PATCH] changes
+
+---
+ .idea/.gitignore                              |   3 +
+ .idea/forage-jpmc-swe-task-3.iml              |  10 ++
+ .../inspectionProfiles/profiles_settings.xml  |   6 +
+ .idea/misc.xml                                |   4 +
+ .idea/modules.xml                             |   8 ++
+ .idea/vcs.xml                                 |   6 +
+ package-lock.json                             |  30 ++---
+ package.json                                  |   2 +-
+ src/App.tsx                                   |  49 ++++++--
+ src/DataManipulator.ts                        |  48 ++++++--
+ src/Graph.tsx                                 | 113 ++++++++++++------
+ 11 files changed, 202 insertions(+), 77 deletions(-)
+ create mode 100644 .idea/.gitignore
+ create mode 100644 .idea/forage-jpmc-swe-task-3.iml
+ create mode 100644 .idea/inspectionProfiles/profiles_settings.xml
+ create mode 100644 .idea/misc.xml
+ create mode 100644 .idea/modules.xml
+ create mode 100644 .idea/vcs.xml
+
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+index 0000000..26d3352
+--- /dev/null
++++ b/.idea/.gitignore
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+diff --git a/.idea/forage-jpmc-swe-task-3.iml b/.idea/forage-jpmc-swe-task-3.iml
+new file mode 100644
+index 0000000..74d515a
+--- /dev/null
++++ b/.idea/forage-jpmc-swe-task-3.iml
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/venv" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+index 0000000..105ce2d
+--- /dev/null
++++ b/.idea/inspectionProfiles/profiles_settings.xml
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+index 0000000..ee2cba6
+--- /dev/null
++++ b/.idea/misc.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (forage-jpmc-swe-task-3)" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+index 0000000..ade28e9
+--- /dev/null
++++ b/.idea/modules.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/forage-jpmc-swe-task-3.iml" filepath="$PROJECT_DIR$/.idea/forage-jpmc-swe-task-3.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+index 0000000..35eb1dd
+--- /dev/null
++++ b/.idea/vcs.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/package-lock.json b/package-lock.json
+index 8135a72..528cccb 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -8,7 +8,7 @@
+       "name": "bank-merge-co-task-3",
+       "version": "0.1.0",
+       "dependencies": {
+-        "@finos/perspective": "^1.6.2",
++        "@finos/perspective": "^1.9.4",
+         "@finos/perspective-viewer": "^1.6.2",
+         "@finos/perspective-viewer-d3fc": "^1.6.2",
+         "@finos/perspective-viewer-datagrid": "^1.6.2",
+@@ -2129,11 +2129,11 @@
+       }
+     },
+     "node_modules/@finos/perspective": {
+-      "version": "1.6.2",
+-      "resolved": "https://registry.npmjs.org/@finos/perspective/-/perspective-1.6.2.tgz",
+-      "integrity": "sha512-SdHIPe3AiLEigkbYEMG9+Tsxq5tnsoC4Ch0X1a13QM3vRfw+VUnNj0TioBYC4fwRIKO4NoS3dobbYmkNc0piAQ==",
++      "version": "1.9.4",
++      "resolved": "https://registry.npmjs.org/@finos/perspective/-/perspective-1.9.4.tgz",
++      "integrity": "sha512-rW6xcC/IUp+ffQ0/1Lv8gY/FbrtEGVt1FmJRG3Un0DAAya5xxd4z9yb6HdDklL9UbG9mYL16ZfqNLNB70R6+0w==",
+       "dependencies": {
+-        "fflate": "^0.7.2",
++        "fflate": "^0.7.4",
+         "ws": "^6.1.2"
+       },
+       "engines": {
+@@ -7594,9 +7594,9 @@
+       }
+     },
+     "node_modules/fflate": {
+-      "version": "0.7.3",
+-      "resolved": "https://registry.npmjs.org/fflate/-/fflate-0.7.3.tgz",
+-      "integrity": "sha512-0Zz1jOzJWERhyhsimS54VTqOteCNwRtIlh8isdL0AXLo0g7xNTfTL7oWrkmCnPhZGocKIkWHBistBrrpoNH3aw=="
++      "version": "0.7.4",
++      "resolved": "https://registry.npmjs.org/fflate/-/fflate-0.7.4.tgz",
++      "integrity": "sha512-5u2V/CDW15QM1XbbgS+0DfPxVB+jUKhWEKuuFuHncbk3tEEqzmoXL+2KyOFuKGqOnmdIy0/davWF1CkuwtibCw=="
+     },
+     "node_modules/figgy-pudding": {
+       "version": "3.5.2",
+@@ -21827,11 +21827,11 @@
+       }
+     },
+     "@finos/perspective": {
+-      "version": "1.6.2",
+-      "resolved": "https://registry.npmjs.org/@finos/perspective/-/perspective-1.6.2.tgz",
+-      "integrity": "sha512-SdHIPe3AiLEigkbYEMG9+Tsxq5tnsoC4Ch0X1a13QM3vRfw+VUnNj0TioBYC4fwRIKO4NoS3dobbYmkNc0piAQ==",
++      "version": "1.9.4",
++      "resolved": "https://registry.npmjs.org/@finos/perspective/-/perspective-1.9.4.tgz",
++      "integrity": "sha512-rW6xcC/IUp+ffQ0/1Lv8gY/FbrtEGVt1FmJRG3Un0DAAya5xxd4z9yb6HdDklL9UbG9mYL16ZfqNLNB70R6+0w==",
+       "requires": {
+-        "fflate": "^0.7.2",
++        "fflate": "^0.7.4",
+         "ws": "^6.1.2"
+       }
+     },
+@@ -26244,9 +26244,9 @@
+       }
+     },
+     "fflate": {
+-      "version": "0.7.3",
+-      "resolved": "https://registry.npmjs.org/fflate/-/fflate-0.7.3.tgz",
+-      "integrity": "sha512-0Zz1jOzJWERhyhsimS54VTqOteCNwRtIlh8isdL0AXLo0g7xNTfTL7oWrkmCnPhZGocKIkWHBistBrrpoNH3aw=="
++      "version": "0.7.4",
++      "resolved": "https://registry.npmjs.org/fflate/-/fflate-0.7.4.tgz",
++      "integrity": "sha512-5u2V/CDW15QM1XbbgS+0DfPxVB+jUKhWEKuuFuHncbk3tEEqzmoXL+2KyOFuKGqOnmdIy0/davWF1CkuwtibCw=="
+     },
+     "figgy-pudding": {
+       "version": "3.5.2",
+diff --git a/package.json b/package.json
+index 8ca3a60..e7e3c7f 100644
+--- a/package.json
++++ b/package.json
+@@ -3,7 +3,7 @@
+   "version": "0.1.0",
+   "private": true,
+   "dependencies": {
+-    "@finos/perspective": "^1.6.2",
++    "@finos/perspective": "^1.9.4",
+     "@finos/perspective-viewer": "^1.6.2",
+     "@finos/perspective-viewer-d3fc": "^1.6.2",
+     "@finos/perspective-viewer-datagrid": "^1.6.2",
+diff --git a/src/App.tsx b/src/App.tsx
+index 274d20b..76db405 100755
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -2,12 +2,15 @@ import React, { Component } from 'react';
+ import DataStreamer, { ServerRespond } from './DataStreamer';
+ import Graph from './Graph';
+ import './App.css';
++import { Table } from '@finos/perspective';
+ 
+ interface IState {
+-  data: ServerRespond[],
+-  showGraph: boolean,
++  data: ServerRespond[];
++  showGraph: boolean;
+ }
+ 
++type TableData = Record<string, (string | number | boolean | Date)[]>[];
++
+ class App extends Component<{}, IState> {
+   constructor(props: {}) {
+     super(props);
+@@ -15,11 +18,27 @@ class App extends Component<{}, IState> {
+       data: [],
+       showGraph: false,
+     };
++
++    this.getDataFromServer = this.getDataFromServer.bind(this);
+   }
+ 
++  loadTable = (table: Table) => {
++    const data = this.state.data;
++
++    const dataFormatted: TableData = data.map(row => {
++      const formattedRow: Record<string, (string | number | boolean | Date)[]> = {};
++      Object.entries(row).forEach(([key, value]) => {
++        formattedRow[key] = [value as string | number | boolean | Date];
++      });
++      return formattedRow;
++    });
++
++    table.update(dataFormatted);
++  };
++
+   renderGraph() {
+     if (this.state.showGraph) {
+-      return (<Graph data={this.state.data}/>)
++      return <Graph data={this.state.data} color="blue" load={this.loadTable} />;
+     }
+   }
+ 
+@@ -42,18 +61,26 @@ class App extends Component<{}, IState> {
+   render() {
+     return (
+       <div className="App">
+-        <header className="App-header">
+-          Bank Merge & Co Task 3
+-        </header>
++        <header className="App-header">Bank Merge & Co Task 3</header>
+         <div className="App-content">
+-          <button className="btn btn-primary Stream-button" onClick={() => {this.getDataFromServer()}}>Start Streaming Data</button>
+-          <div className="Graph">
+-            {this.renderGraph()}
+-          </div>
++          <button
++            className="btn btn-primary Stream-button"
++            onClick={this.getDataFromServer}
++          >
++            Start Streaming Data
++          </button>
++          <div className="Graph">{this.renderGraph()}</div>
+         </div>
+       </div>
+-    )
++    );
+   }
+ }
+ 
+ export default App;
++
++
++
++
++
++
++
+diff --git a/src/DataManipulator.ts b/src/DataManipulator.ts
+index 7f62295..e2103de 100644
+--- a/src/DataManipulator.ts
++++ b/src/DataManipulator.ts
+@@ -1,20 +1,46 @@
+ import { ServerRespond } from './DataStreamer';
+ 
+ export interface Row {
+-  stock: string,
+-  top_ask_price: number,
++  price_abc: number,
++  price_def: number,
++  ratio: number,
+   timestamp: Date,
++  upper_bound: number,
++  lower_bound: number,
++  trigger_alert: number | undefined,
+ }
+ 
+-
+ export class DataManipulator {
+-  static generateRow(serverResponds: ServerRespond[]) {
+-    return serverResponds.map((el: any) => {
+-      return {
+-        stock: el.stock,
+-        top_ask_price: el.top_ask && el.top_ask.price || 0,
+-        timestamp: el.timestamp,
+-      };
+-    })
++  static generateRow(serverRespond: ServerRespond[]): Row {
++    const priceABC = (serverRespond[0].top_ask.price + serverRespond[0].top_bid.price) / 2;
++    const priceDEF = (serverRespond[0].top_ask.price + serverRespond[1].top_ask.price) / 2;
++    const ratio = priceABC / priceDEF;
++
++    // Calculate the 12-month historical average ratio
++    const historicalData = serverRespond.slice(2); // Assuming historical data starts from index 2
++    const historicalRatios = historicalData.map(data => {
++      const historicalPriceABC = (data.top_ask.price + data.top_bid.price) / 2;
++      const historicalPriceDEF = (data.top_ask.price + data.top_ask.price) / 2;
++      return historicalPriceABC / historicalPriceDEF;
++    });
++    const averageRatio = historicalRatios.reduce((sum, ratio) => sum + ratio, 0) / historicalRatios.length;
++
++    const upperBound = averageRatio * 1.1;
++    const lowerBound = averageRatio * 0.9;
++
++    return {
++      price_abc: priceABC,
++      price_def: priceDEF,
++      ratio,
++      timestamp: serverRespond[0].timestamp > serverRespond[1].timestamp
++        ? serverRespond[0].timestamp
++        : serverRespond[1].timestamp,
++      upper_bound: upperBound,
++      lower_bound: lowerBound,
++      trigger_alert: (ratio > upperBound || ratio < lowerBound) ? ratio : undefined,
++    };
+   }
+ }
++
++
++
+diff --git a/src/Graph.tsx b/src/Graph.tsx
+index 277797d..22f4261 100644
+--- a/src/Graph.tsx
++++ b/src/Graph.tsx
+@@ -1,60 +1,95 @@
+-import React, { Component } from 'react';
+-import { Table } from '@finos/perspective';
++import React, { Component, RefObject } from 'react';
++import { Table, Schema } from '@finos/perspective';
+ import { ServerRespond } from './DataStreamer';
+-import { DataManipulator } from './DataManipulator';
+ import './Graph.css';
++import { DataManipulator, Row } from './DataManipulator';
+ 
+ interface IProps {
+-  data: ServerRespond[],
++  data: ServerRespond[];
++  color: string;
++  load: (table: Table) => void;
+ }
+ 
+-interface PerspectiveViewerElement extends HTMLElement {
+-  load: (table: Table) => void,
+-}
+-class Graph extends Component<IProps, {}> {
++type TableData = Record<string, (string | number | boolean | Date)[]>[];
++
++class Graph extends Component<IProps> {
+   table: Table | undefined;
++  perspectiveViewerRef: RefObject<HTMLDivElement>;
+ 
+-  render() {
+-    return React.createElement('perspective-viewer');
++  constructor(props: IProps) {
++    super(props);
++    this.perspectiveViewerRef = React.createRef<HTMLDivElement>();
+   }
+ 
+   componentDidMount() {
+-    // Get element from the DOM.
+-    const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
+-
+-    const schema = {
+-      stock: 'string',
+-      top_ask_price: 'float',
+-      top_bid_price: 'float',
+-      timestamp: 'date',
+-    };
+-
+-    if (window.perspective && window.perspective.worker()) {
+-      this.table = window.perspective.worker().table(schema);
+-    }
+-    if (this.table) {
+-      // Load the `table` in the `<perspective-viewer>` DOM reference.
+-      elem.load(this.table);
+-      elem.setAttribute('view', 'y_line');
+-      elem.setAttribute('column-pivots', '["stock"]');
+-      elem.setAttribute('row-pivots', '["timestamp"]');
+-      elem.setAttribute('columns', '["top_ask_price"]');
+-      elem.setAttribute('aggregates', JSON.stringify({
+-        stock: 'distinctcount',
+-        top_ask_price: 'avg',
+-        top_bid_price: 'avg',
+-        timestamp: 'distinct count',
+-      }));
++    const elem = this.perspectiveViewerRef.current;
++
++    if (elem !== null) {
++      const schema = {
++        price_abc: 'float',
++        price_def: 'float',
++        ratio: 'float',
++        timestamp: 'date',
++        upper_bound: 'float',
++        lower_bound: 'float',
++        trigger_alert: 'float',
++      };
++
++      if (window.perspective && window.perspective.worker) {
++        this.table = window.perspective.worker().table(schema);
++      }
++
++      if (this.table) {
++        this.props.load(this.table);
++        elem.setAttribute('view', 'y_line');
++        elem.setAttribute('row-pivots', '["timestamp"]');
++        elem.setAttribute('columns', '["ratio", "lower_bound", "upper_bound", "trigger_alert"]');
++        elem.setAttribute('aggregates', JSON.stringify({
++          price_abc: 'avg',
++          price_def: 'avg',
++          ratio: 'avg',
++          timestamp: 'distinct count',
++          upper_bound: 'avg',
++          lower_bound: 'avg',
++          trigger_alert: 'avg',
++        }));
++      }
+     }
+   }
+ 
+   componentDidUpdate() {
+     if (this.table) {
+-      this.table.update(
+-        DataManipulator.generateRow(this.props.data),
+-      );
++      const data: Row = DataManipulator.generateRow(this.props.data);
++
++      this.table.schema().then((schema: Schema) => {
++        const schemaKeys: string[] = Object.keys(schema);
++
++        const dataFormatted: TableData = schemaKeys.reduce((formattedData, key) => {
++          const value: (string | number | boolean | Date)[] = [data[key as keyof Row] as string | number | boolean | Date];
++          formattedData.push({ [key]: value });
++          return formattedData;
++        }, [] as TableData);
++
++        this.table!.update(dataFormatted);
++      });
+     }
+   }
++
++  render() {
++    return <div ref={this.perspectiveViewerRef} />;
++  }
+ }
+ 
+ export default Graph;
++
++
++
++
++
++
++
++
++
++
++
++
+-- 
+2.40.0.windows.1
+
